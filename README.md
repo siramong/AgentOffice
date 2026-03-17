@@ -1,167 +1,213 @@
 <h1 align="center">
-    <a href="https://github.com/pablodelucca/pixel-agents/discussions">
-        <img src="webview-ui/public/banner.png" alt="Pixel Agents">
-    </a>
+  🕹️ Agent Office
 </h1>
 
-<h2 align="center" style="padding-bottom: 20px;">
-  The game interface where AI agents build real things
+<h2 align="center">
+  The pixel art command center for <em>any</em> AI agent — not just Claude
 </h2>
 
-<div align="center" style="margin-top: 25px;">
+<div align="center">
 
-[![version](https://img.shields.io/endpoint?url=https%3A%2F%2Fgist.githubusercontent.com%2Fpablodelucca%2F3cd28398fa4a2c0a636e1d51d41aee39%2Fraw%2Fversion.json)](https://github.com/pablodelucca/pixel-agents/releases)
-[![marketplaces](https://img.shields.io/endpoint?url=https%3A%2F%2Fgist.githubusercontent.com%2Fpablodelucca%2F3cd28398fa4a2c0a636e1d51d41aee39%2Fraw%2Finstalls.json)](https://marketplace.visualstudio.com/items?itemName=pablodelucca.pixel-agents)
-[![stars](https://img.shields.io/github/stars/pablodelucca/pixel-agents?logo=github&color=0183ff&style=flat)](https://github.com/pablodelucca/pixel-agents/stargazers)
-[![license](https://img.shields.io/github/license/pablodelucca/pixel-agents?color=0183ff&style=flat)](https://github.com/pablodelucca/pixel-agents/blob/main/LICENSE)
-[![good first issues](https://img.shields.io/github/issues/pablodelucca/pixel-agents/good%20first%20issue?color=7057ff&label=good%20first%20issues)](https://github.com/pablodelucca/pixel-agents/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
+[![license](https://img.shields.io/github/license/your-username/agent-office?color=0183ff&style=flat)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
+[![MCP Compatible](https://img.shields.io/badge/MCP-compatible-blueviolet?style=flat)](docs/mcp-protocol.md)
 
 </div>
 
 <div align="center">
-<a href="https://marketplace.visualstudio.com/items?itemName=pablodelucca.pixel-agents">🛒 VS Code Marketplace</a> • <a href="https://github.com/pablodelucca/pixel-agents/discussions">💬 Discussions</a> • <a href="https://github.com/pablodelucca/pixel-agents/issues">🐛 Issues</a> • <a href="CONTRIBUTING.md">🤝 Contributing</a> • <a href="CHANGELOG.md">📋 Changelog</a>
+<a href="#features">Features</a> •
+<a href="#quick-start">Quick Start</a> •
+<a href="#supported-agents">Supported Agents</a> •
+<a href="#mcp-server">MCP Server</a> •
+<a href="#github-integration">GitHub Integration</a> •
+<a href="#roadmap">Roadmap</a> •
+<a href="#contributing">Contributing</a>
 </div>
 
 <br/>
 
-Pixel Agents turns multi-agent AI systems into something you can actually see and manage. Each agent becomes a character in a pixel art office. They walk around, sit at their desk, and visually reflect what they are doing — typing when writing code, reading when searching files, waiting when it needs your attention.
+> **Forked from [pablodelucca/pixel-agents](https://github.com/pablodelucca/pixel-agents)** — extended to support any AI agent via MCP, GitHub CLI integration, and a standalone Electron app.
 
-Right now it works as a VS Code extension with Claude Code. The vision though, is a fully agent-agnostic, platform-agnostic interface for orchestrating any AI agents, deployable anywhere.
+---
 
-This is the source code for the free Pixel Agents extension for VS Code — install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=pablodelucca.pixel-agents) or [Open VSX](https://open-vsx.org/extension/pablodelucca/pixel-agents) with the full furniture catalog included.
+**Agent Office** turns your multi-agent AI workflows into something you can actually see, manage, and control. Each agent becomes an animated pixel character in a shared office. They walk to their desks, animate based on what they're doing, and signal when they need your attention.
 
-![Pixel Agents screenshot](webview-ui/public/Screenshot.jpg)
+The original project was hardwired to Claude Code's JSONL transcripts. **Agent Office makes the visualization layer generic**: any agent that speaks [MCP](https://modelcontextprotocol.io) can register itself, report its status, and appear in the office.
+
+![Agent Office screenshot](docs/screenshot.png)
+
+---
 
 ## Features
 
-- **One agent, one character** — every Claude Code terminal gets its own animated character
-- **Live activity tracking** — characters animate based on what the agent is actually doing (writing, reading, running commands)
-- **Office layout editor** — design your office with floors, walls, and furniture using a built-in editor
-- **Speech bubbles** — visual indicators when an agent is waiting for input or needs permission
-- **Sound notifications** — optional chime when an agent finishes its turn
-- **Sub-agent visualization** — Task tool sub-agents spawn as separate characters linked to their parent
-- **Persistent layouts** — your office design is saved and shared across VS Code windows
-- **Diverse characters** — 6 diverse characters. These are based on the amazing work of [JIK-A-4, Metro City](https://jik-a-4.itch.io/metrocity-free-topdown-character-pack).
+- **Agent-agnostic** — Claude Code, GitHub Copilot CLI, Codex, Gemini CLI, or your own custom agent via the MCP bridge
+- **Live activity tracking** — characters animate based on what the agent is actually doing
+- **GitHub CLI integration** — agents are linked to real PRs, issues, and branches; their work shows on a Kanban wall
+- **MCP server** — agents connect to a local MCP server and push status events; no file parsing hacks
+- **Office layout editor** — design your workspace with floors, walls, and furniture
+- **Standalone Electron app** — no VS Code required (VS Code extension also supported)
+- **Speech bubbles** — permission requests and idle signals surface visually
+- **Sound notifications** — ascending chime when an agent finishes its turn
+- **Persistent layouts** — your office survives restarts and is shared across windows
+- **Diverse characters** — 6 base skins with per-agent hue shifts
 
-<p align="center">
-  <img src="webview-ui/public/characters.png" alt="Pixel Agents characters" width="320" height="72" style="image-rendering: pixelated;">
-</p>
+---
 
-## Requirements
+## Quick Start
 
-- VS Code 1.105.0 or later
-- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) installed and configured
-
-## Getting Started
-
-If you just want to use Pixel Agents, the easiest way is to download the [VS Code extension](https://marketplace.visualstudio.com/items?itemName=pablodelucca.pixel-agents). If you want to play with the code, develop, or contribute, then:
-
-### Install from source
+### VS Code Extension (legacy path, still works)
 
 ```bash
-git clone https://github.com/pablodelucca/pixel-agents.git
-cd pixel-agents
+git clone https://github.com/your-username/agent-office.git
+cd agent-office
 npm install
 cd webview-ui && npm install && cd ..
 npm run build
 ```
 
-Then press **F5** in VS Code to launch the Extension Development Host.
+Press **F5** in VS Code to launch the Extension Development Host.
 
-### Usage
+### Standalone App (new)
 
-1. Open the **Pixel Agents** panel (it appears in the bottom panel area alongside your terminal)
-2. Click **+ Agent** to spawn a new Claude Code terminal and its character
-3. Start coding with Claude — watch the character react in real time
-4. Click a character to select it, then click a seat to reassign it
-5. Click **Layout** to open the office editor and customize your space
+```bash
+npm run app
+```
 
-## Layout Editor
+Opens a desktop window — no VS Code needed. Agents connect via the built-in MCP server.
 
-The built-in editor lets you design your office:
+### Connect an Agent
 
-- **Floor** — Full HSB color control
-- **Walls** — Auto-tiling walls with color customization
-- **Tools** — Select, paint, erase, place, eyedropper, pick
-- **Undo/Redo** — 50 levels with Ctrl+Z / Ctrl+Y
-- **Export/Import** — Share layouts as JSON files via the Settings modal
+Any agent that supports MCP can register with the local server:
 
-The grid is expandable up to 64×64 tiles. Click the ghost border outside the current grid to grow it.
+```json
+{
+  "mcpServers": {
+    "agent-office": {
+      "url": "http://localhost:7842/mcp"
+    }
+  }
+}
+```
 
-### Office Assets
+For Claude Code specifically, the original JSONL-watching path still works with zero configuration.
 
-All office assets (furniture, floors, walls) are now **fully open-source** and included in this repository under `webview-ui/public/assets/`. No external purchases or imports are needed — everything works out of the box.
+---
 
-Each furniture item lives in its own folder under `assets/furniture/` with a `manifest.json` that declares its sprites, rotation groups, state groups (on/off), and animation frames. Floor tiles are individual PNGs in `assets/floors/`, and wall tile sets are in `assets/walls/`. This modular structure makes it easy to add, remove, or modify assets without touching any code.
+## Supported Agents
 
-To add a new furniture item, create a folder in `webview-ui/public/assets/furniture/` with your PNG sprite(s) and a `manifest.json`, then rebuild. The asset manager (`scripts/asset-manager.html`) provides a visual editor for creating and editing manifests.
+| Agent | Connection Method | Status |
+|---|---|---|
+| Claude Code | JSONL file watcher (original) | ✅ Stable |
+| Claude Code | MCP bridge | 🚧 In Progress |
+| GitHub Copilot CLI | MCP bridge | 📋 Planned |
+| OpenAI Codex CLI | MCP bridge | 📋 Planned |
+| Gemini CLI | MCP bridge | 📋 Planned |
+| Custom / DIY | MCP SDK | ✅ Supported |
 
-Detailed documentation on the manifest format and asset pipeline is coming soon.
+---
 
-Characters are based on the amazing work of [JIK-A-4, Metro City](https://jik-a-4.itch.io/metrocity-free-topdown-character-pack).
+## MCP Server
 
-## How It Works
+Agent Office runs a local MCP server (default: `http://localhost:7842`) that exposes a small set of tools agents can call to report their state:
 
-Pixel Agents watches Claude Code's JSONL transcript files to track what each agent is doing. When an agent uses a tool (like writing a file or running a command), the extension detects it and updates the character's animation accordingly. No modifications to Claude Code are needed — it's purely observational.
+```
+agent_register(name, model?)         → register and get an agent_id
+agent_tool_start(agent_id, tool, description)
+agent_tool_done(agent_id, tool_id)
+agent_waiting(agent_id)              → signal idle / waiting for input
+agent_heartbeat(agent_id)            → keep connection alive
+```
 
-The webview runs a lightweight game loop with canvas rendering, BFS pathfinding, and a character state machine (idle → walk → type/read). Everything is pixel-perfect at integer zoom levels.
+The server broadcasts these events to all connected office views (VS Code webview or Electron window) via WebSocket.
 
-## Tech Stack
+See [docs/mcp-protocol.md](docs/mcp-protocol.md) for the full spec and SDK examples.
 
-- **Extension**: TypeScript, VS Code Webview API, esbuild
-- **Webview**: React 19, TypeScript, Vite, Canvas 2D
+---
 
-## Known Limitations
+## GitHub Integration
 
-- **Agent-terminal sync** — the way agents are connected to Claude Code terminal instances is not super robust and sometimes desyncs, especially when terminals are rapidly opened/closed or restored across sessions.
-- **Heuristic-based status detection** — Claude Code's JSONL transcript format does not provide clear signals for when an agent is waiting for user input or when it has finished its turn. The current detection is based on heuristics (idle timers, turn-duration events) and often misfires — agents may briefly show the wrong status or miss transitions.
-- **Windows-only testing** — the extension has only been tested on Windows 11. It may work on macOS or Linux, but there could be unexpected issues with file watching, paths, or terminal behavior on those platforms.
+When an agent is linked to a GitHub repository, Agent Office can pull in context from `gh`:
 
-## Where This Is Going
+- **Branch name** shown under the character's name tag
+- **PR status** (open / draft / review requested) shown as a badge
+- **CI status** animates the character: green = passing, red = blocked
+- **Kanban wall** furniture item displays open issues assigned to each agent
+- **Merge events** trigger a confetti spawn animation
 
-The long-term vision is an interface where managing AI agents feels like playing the Sims, but the results are real things built.
+Connect a repo:
 
-- **Agents as characters** you can see, assign, monitor, and redirect, each with visible roles (designer, coder, writer, reviewer), stats, context usage, and tools.
-- **Desks as directories** — drag an agent to a desk to assign it to a project or working directory.
-- **An office as a project** — with a Kanban board on the wall where idle agents can pick up tasks autonomously.
-- **Deep inspection** — click any agent to see its model, branch, system prompt, and full work history. Interrupt it, chat with it, or redirect it.
-- **Token health bars** — rate limits and context windows visualized as in-game stats.
-- **Fully customizable** — upload your own character sprites, themes, and office assets. Eventually maybe even move beyond pixel art into 3D or VR.
+```bash
+# in the office settings modal
+gh auth login   # if not already authenticated
+# then set the repo in Settings → GitHub Repository
+```
 
-For this to work, the architecture needs to be modular at every level:
+---
 
-- **Platform-agnostic**: VS Code extension today, Electron app, web app, or any other host environment tomorrow.
-- **Agent-agnostic**: Claude Code today, but built to support Codex, OpenCode, Gemini, Cursor, Copilot, and others through composable adapters.
-- **Theme-agnostic**: community-created assets, skins, and themes from any contributor.
+## Architecture
 
-We're actively working on the core module and adapter architecture that makes this possible. If you're interested to talk about this further, please visit our [Discussions Section](https://github.com/pablodelucca/pixel-agents/discussions).
+```
+agent-office/
+├── src/                     # Extension / Electron backend
+│   ├── mcp/                 # MCP server (new)
+│   │   ├── server.ts        # Express + WS MCP endpoint
+│   │   └── protocol.ts      # Tool definitions + event types
+│   ├── github/              # GitHub CLI bridge (new)
+│   │   ├── ghClient.ts      # gh CLI wrapper
+│   │   └── prWatcher.ts     # PR/CI polling
+│   ├── adapters/            # Agent adapters (new)
+│   │   ├── claudeCode.ts    # Original JSONL watcher (unchanged)
+│   │   └── mcpAgent.ts      # Generic MCP-connected agent
+│   └── ...                  # Existing extension code
+├── electron/                # Standalone app entry (new)
+│   └── main.ts
+└── webview-ui/              # React frontend (unchanged API surface)
+```
 
+---
 
-## Community & Contributing
+## Roadmap
 
-We use **[GitHub Discussions](https://github.com/pablodelucca/pixel-agents/discussions)** for questions, feature ideas, and conversations. **[Issues](https://github.com/pablodelucca/pixel-agents/issues)** are for bug reports only.
+See [ROADMAP.md](ROADMAP.md) for the full milestone plan and GitHub Issues for individual tasks.
 
-If something is broken, open an issue. For everything else, start a discussion.
+**v1.2 — MCP Bridge** (current sprint)
+- Local MCP server that agents can connect to
+- Generic agent adapter replacing hardcoded JSONL parsing
+- Keep Claude Code JSONL path working as a built-in adapter
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to contribute.
+**v1.3 — GitHub Integration**
+- `gh` CLI wrapper for PR/issue/CI data
+- Branch name and PR status on character overlay
+- Kanban wall furniture item showing issue queue
 
-Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before participating.
+**v1.4 — Standalone Electron App**
+- No VS Code dependency for basic usage
+- System tray icon, auto-start on login
+- Multi-window layout sync via the existing `~/.pixel-agents/layout.json` mechanism
 
-## Supporting the Project
+**v1.5 — Agent Marketplace**
+- Pre-built adapter configs for popular CLI agents
+- One-click connect flow from the Settings modal
 
-If you find Pixel Agents useful, consider supporting its development:
+---
 
-<a href="https://github.com/sponsors/pablodelucca">
-  <img src="https://img.shields.io/badge/Sponsor-GitHub-ea4aaa?logo=github" alt="GitHub Sponsors">
-</a>
-<a href="https://ko-fi.com/pablodelucca">
-  <img src="https://img.shields.io/badge/Support-Ko--fi-ff5e5b?logo=ko-fi" alt="Ko-fi">
-</a>
+## Contributing
 
-## Star History
+PRs are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=pablodelucca/pixel-agents&type=Date)](https://www.star-history.com/?repos=pablodelucca%2Fpixel-agents&type=date&legend=bottom-right)
+The fastest way to contribute right now:
+1. Write an adapter for your favorite agent CLI
+2. Test the MCP bridge against a new client
+3. Add a furniture item or character skin
+
+---
+
+## Credits
+
+- Original pixel-agents project by [@pablodelucca](https://github.com/pablodelucca) — MIT License
+- Characters based on [JIK-A-4 Metro City](https://jik-a-4.itch.io/metrocity-free-topdown-character-pack)
+- All office assets open-source and included in this repository
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+MIT — see [LICENSE](LICENSE)
